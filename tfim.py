@@ -219,13 +219,12 @@ def JZZ_SK_ME(basis,J):
     """ Computes matrix elements for the SK interactions
         and returns each as a 1D np.array
         --JZZ = \sum_{i,j} J_{ij}\sigma^z_i \sigma^z_j"""
-    
     JZZ = np.zeros(basis.M)
     bar = progressbar.ProgressBar()
     shift_state = np.zeros(basis.N,dtype=int)
     for b in bar(range(basis.M)):
         state = basis.spin_state(b)
-        for shift in range(1,basis.N/2+1):
+        for shift in range(1,int(basis.N/2+1)):
             shift_state[shift:] = state[:-shift]
             shift_state[:shift] = state[-shift:]
             if (basis.N%2 == 0) and (shift == basis.N/2):

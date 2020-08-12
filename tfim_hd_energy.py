@@ -1,5 +1,6 @@
 import tfim
 import numpy as np
+import matplotlib.pyplot as plt
 
 #################################################################################
 
@@ -80,3 +81,22 @@ def ground_arrays(N, basis, energy):
         arr = hamming_energy_array(N, basis, energy, ground_list[i])
         array_list.append(arr)
     return array_list
+
+#################################################################################
+
+def histogram(array, title, xticks, yticks):
+    hd1 = array[:,1]
+    hd2 = array[:,2]
+    max1 = np.max(np.nonzero(hd1)) +1
+    max2 = np.max(np.nonzero(hd2)) +1
+    plt.hist(range(0,max1), max1, weights=hd1[0:max1], label="hd1", align="left", range=(0,max1), color='g')
+    plt.hist(range(0,max2), max2, weights=hd2[0:max2], label="hd2", align="left", range=(0,max2), color='b')
+    plt.xlabel("Energy Level")
+    plt.ylabel("Count")
+    plt.xticks(xticks)
+    plt.yticks(yticks)
+    plt.legend(loc="upper right")
+    plt.title(title)
+    path = "/Users/jacklandrigan/Desktop/tfim-hamming-energy-master/Histograms/" + title + ".png"
+    plt.savefig(path)
+    plt.show()
